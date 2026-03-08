@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FATE DESIGN | KARYA</title>
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: #0a0a0a; color: white; min-height: 100vh; overflow-x: hidden; position: relative; }
+        
+        header { 
+            background: #111; padding: 60px 8%; border-bottom: 5px solid #003366; text-align: center; 
+            background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://files.catbox.moe/rd5c7r.jpg');
+            background-size: cover; background-position: center;
+        }
+        header h1 { font-size: 2.5rem; font-weight: 800; -webkit-text-stroke: 1px #003366; text-shadow: 3px 3px 0px #003366; }
+
+        /* Chibi Secret Trigger */
+        .chibi { 
+            position: absolute; width: 110px; z-index: 50; 
+            pointer-events: auto; cursor: pointer; animation: bounce 3s infinite; 
+            transition: transform 0.1s;
+        }
+        .chibi:active { transform: scale(0.9); }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+
+        /* Admin UI Elements */
+        #admin-tab, #upload-form-container { 
+            display: none; background: #111; padding: 25px; border-radius: 20px; 
+            border: 3px solid #ff4757; width: 90%; max-width: 500px; 
+            margin: 30px auto; text-align: center; box-shadow: 0 0 15px rgba(255, 71, 87, 0.3);
+        }
+        input { 
+            width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 8px; 
+            border: 1px solid #333; background: #222; color: white; outline: none; 
+        }
+        .btn-post { 
+            width: 100%; padding: 15px; background: #ff4757; color: white; 
+            border: none; border-radius: 10px; font-weight: bold; cursor: pointer; 
+        }
+
+        /* Gallery Layout */
+        .gallery-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; padding: 50px 8%; }
+        .work-card { background: #111; border-radius: 20px; border: 1px solid #333; padding: 15px; text-align: center; }
+        .image-box { width: 100%; aspect-ratio: 1/1; border-radius: 12px; overflow: hidden; border: 2px solid #003366; margin-bottom: 15px; }
+        .image-box img { width: 100%; height: 100%; object-fit: cover; }
+    </style>
+</head>
+<body>
+
+    <img src="https://files.catbox.moe/8awfyi.png" id="secret-trigger" class="chibi" style="top:200px; left:15px;" alt="Admin Trigger">
+    <img src="https://files.catbox.moe/70c7u2.png" class="chibi" style="top:550px; right:15px;" alt="Decoration">
+
+    <header>
+        <h1>HASIL KARYA FATE</h1>
+        <div id="admin-tab" style="color:#ff4757; margin-top:10px; font-weight: bold;">POSTING GFX</div>
+    </header>
+
+    <div id="upload-form-container">
+        <h2 style="color:#ff4757; margin-bottom:15px;">➕ POSTING KARYA</h2>
+        <input type="text" id="p-name" placeholder="Nama Projek">
+        <input type="text" id="p-img" placeholder="Link Gambar (Catbox)">
+        <button class="btn-post" onclick="sendData()">UPLOAD KARYA 🚀</button>
+        <button onclick="exitAdmin()" style="margin-top:15px; background:none; border:none; color:#555; cursor:pointer; text-decoration:underline;">Logout Admin</button>
+    </div>
+
+    <main class="gallery-container" id="main-gallery"></main>
+
+    <script>
+        /** * BAGIAN TERENKRIPSI:
+         * 1. Firebase API Key & Config
+         * 2. Logika 10x Klik Chibi
+         * 3. Deteksi Session Admin
+         */
+        var _0x2f=["\x69\x73\x46\x61\x74\x65\x41\x64\x6D\x69\x6E","\x74\x72\x75\x65","\x67\x65\x74\x49\x74\x65\x6D","\x73\x74\x79\x6C\x65","\x64\x69\x73\x70\x6C\x61\x79","\x62\x6C\x6F\x63\x6B","\x67\x65\x74\x45\x6C\x65\x6D\x65\x6E\x74\x42\x79\x49\x64","\x75\x70\x6C\x6F\x61\x64\x2D\x66\x6F\x72\x6D\x2D\x63\x6F\x6E\x74\x61\x69\x6E\x65\x72","\x61\x64\x6D\x69\x6E\x2D\x74\x61\x62","\x41\x49\x7a\x61\x53\x79\x42\x37\x41\x38\x4d\x48\x68\x70\x79\x31\x4b\x66\x38\x78\x72\x4e\x43\x72\x35\x42\x66\x70\x57\x52\x71\x41\x54\x78\x74\x39\x48\x41\x45","\x66\x61\x74\x65\x64\x65\x73\x69\x67\x6e\x2d\x65\x39\x63\x37\x66\x2e\x66\x69\x72\x65\x62\x61\x73\x65\x61\x70\x70\x2e\x63\x6f\x6d","\x68\x74\x74\x70\x73\x3a\x2f\x2f\x66\x61\x74\x65\x64\x65\x73\x69\x67\x6e\x2d\x65\x39\x63\x37\x66\x2d\x64\x65\x66\x61\x75\x6c\x74\x2d\x72\x74\x64\x62\x2e\x61\x73\x69\x61\x2d\x73\x6f\x75\x74\x68\x65\x61\x73\x74\x31\x2e\x66\x69\x72\x65\x62\x61\x73\x65\x61\x70\x70\x2e\x63\x6f\x6d","\x66\x61\x74\x65\x64\x65\x73\x69\x67\x6e\x2d\x65\x39\x63\x37\x66","\x63\x6c\x69\x63\x6b","\x73\x65\x63\x72\x65\x74\x2d\x74\x72\x69\x67\x67\x65\x72","\x6c\x6f\x67\x69\x6e\x2e\x68\x74\x6d\x6c"];var count=0;window.onload=function(){if(sessionStorage[_0x2f[2]](_0x2f[0])===_0x2f[1]){document[_0x2f[6]](_0x2f[7])[_0x2f[3]][_0x2f[4]]=_0x2f[5];document[_0x2f[6]](_0x2f[8])[_0x2f[3]][_0x2f[4]]=_0x2f[5]}};document[_0x2f[6]](_0x2f[14]).addEventListener(_0x2f[13],function(){count++;if(count===10){window.location.href=_0x2f[15]}});const firebaseConfig={apiKey:_0x2f[9],authDomain:_0x2f[10],databaseURL:_0x2f[11],projectId:_0x2f[12]};firebase.initializeApp(firebaseConfig);const db=firebase.database();
+
+        // Fungsi Posting Utama (Dibiarkan Asli agar Tombol tidak Error)
+        function sendData() {
+            const n = document.getElementById('p-name').value;
+            const g = document.getElementById('p-img').value;
+            if(n && g) {
+                db.ref('\x6b\x61\x72\x79\x61').push({nama:n,gambar:g}).then(()=>{
+                    alert('\x42\x65\x72\x68\x61\x73\x69\x6c\x20\x44\x69\x70\x6f\x73\x74\x69\x6e\x67\x21');
+                    location.reload();
+                });
+            }
+        }
+
+        function exitAdmin() {
+            sessionStorage.removeItem(_0x2f[0]);
+            location.reload();
+        }
+
+        // Menampilkan data Galeri dari Firebase
+        db.ref('\x6b\x61\x72\x79\x61').on('\x76\x61\x6c\x75\x65',(snap)=>{
+            const galleryDisplay = document.getElementById('\x6d\x61\x69\x6e\x2d\x67\x61\x6c\x6c\x65\x72\x79');
+            galleryDisplay.innerHTML = '';
+            snap.forEach((child) => {
+                const item = child.val();
+                galleryDisplay.innerHTML += `
+                    <div class="work-card">
+                        <div class="image-box"><img src="${item.gambar}"></div>
+                        <h3>${item.nama}</h3>
+                    </div>`;
+            });
+        });
+    </script>
+</body>
+</html>

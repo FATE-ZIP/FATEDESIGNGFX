@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FATE DESIGN | HOME</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        
+        body, html { 
+            height: 100%; 
+            background-color: #ffffff; 
+            overflow-x: hidden; 
+            overflow-y: auto; 
+        }
+
+        .container { 
+            display: flex; 
+            min-height: 100vh; 
+            width: 100%; 
+        }
+
+        .left-side {
+            flex: 1;
+            background-color: #ffffff;
+            background-image: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url('https://files.catbox.moe/rd5c7r.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 80px 8%;
+            position: relative;
+        }
+
+        .text-box {
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 18px;
+            border-radius: 12px;
+            border: 3px solid #003366; 
+            box-shadow: 0 4px 15px rgba(0, 51, 102, 0.2);
+            backdrop-filter: blur(8px); 
+            margin-top: 20px;
+            display: inline-block;
+            max-width: 90%;
+        }
+
+        .chibi-bottom-left {
+            position: absolute;
+            bottom: 50px;
+            right: 15%;
+            width: 100px;
+            z-index: 5;
+            animation: bounce 3s infinite ease-in-out;
+        }
+
+        .right-side {
+            flex: 1;
+            background-color: #0a0a0a;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding: 60px 40px;
+        }
+
+        .chibi-on-divider {
+            position: absolute;
+            top: 200px;
+            left: -30px;
+            width: 60px;
+            z-index: 15;
+        }
+
+        .chibi-bottom-right {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 80px;
+            opacity: 0.8;
+            filter: grayscale(30%);
+        }
+
+        .divider-line {
+            position: absolute;
+            top: 0;
+            left: -1.5px;
+            width: 3px;
+            height: 250px;
+            background-color: #003366;
+            box-shadow: 0 0 20px rgba(0, 51, 102, 0.6);
+            z-index: 10;
+        }
+
+        .nav-links { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 30px; }
+        .nav-links a {
+            text-decoration: none;
+            color: #003366;
+            font-weight: 700;
+            padding: 10px 18px;
+            border: 2px solid #003366;
+            border-radius: 8px;
+            transition: 0.3s;
+            background: rgba(255, 255, 255, 0.6);
+        }
+        .nav-links a:hover { background: #003366; color: #fff; }
+
+        .work-card {
+            width: 100%;
+            max-width: 340px;
+            background: #111;
+            padding: 20px;
+            border-radius: 20px;
+            border: 1px solid #333;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .work-image-box {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1 / 1;
+            background: #001a33;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid #003366;
+        }
+
+        .work-image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @media (max-width: 768px) {
+            .container { flex-direction: column; }
+            .divider-line, .chibi-on-divider { display: none; }
+            .left-side, .right-side { padding: 50px 20px; width: 100%; min-height: auto; }
+            .left-side { text-align: center; }
+            .nav-links { justify-content: center; }
+            .chibi-bottom-left { position: relative; right: 0; bottom: 0; margin: 20px auto; display: block; }
+            .work-card { max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <section class="left-side">
+            <div style="position: relative; z-index: 2;">
+                <h1 style="font-size: 3rem; font-weight: 800; line-height: 1; color: white; -webkit-text-stroke: 2px #003366;">FATE<br>Design.</h1>
+                
+                <div class="text-box">
+                    <p style="color: #111; font-weight: 500; line-height: 1.5;">
+                        Yo, minna gw <strong>FATE</strong>. Gw bisa bikin Design DLL kalian bisa follow dan order di gw yaw dibawah ada contoh karya gw.
+                    </p>
+                </div>
+                
+                <nav class="nav-links">
+                    <a href="index.html"> Home</a>
+                    <a href="karya.html"> Karya</a>
+                    <a href="kontak.html"> Kontak</a>
+                </nav>
+            </div>
+
+            <img src="https://files.catbox.moe/8awfyi.png" alt="Chibi Left" class="chibi-bottom-left">
+        </section>
+
+        <section class="right-side">
+            <div class="divider-line"></div>
+            
+            <img src="https://files.catbox.moe/792tgd.png" alt="Chibi Mid" class="chibi-on-divider">
+
+            <div class="work-card">
+                <div class="work-image-box">
+                    <img src="https://files.catbox.moe/9neohu.jpg" alt="Karya GFX UI">
+                </div>
+                
+                <div class="work-info">
+                    <h3 style="color:white; margin-bottom:10px;">Contoh Gfx UI</h3>
+                    <a href="kontak.html" style="text-decoration:none; color:white; border:2px solid #003366; padding:12px; border-radius:8px; display:block; font-weight:bold; background: rgba(0, 51, 102, 0.2);">
+                        Mau ?, order aja cuy ⚡
+                    </a>
+                </div>
+            </div>
+
+            <img src="https://files.catbox.moe/70c7u2.png" alt="Chibi Right" class="chibi-bottom-right">
+        </section>
+    </div>
+
+</body>
+</html>

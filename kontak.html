@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FATE DESIGN | KONTAK</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        
+        body { 
+            background-color: #0a0a0a; 
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        header {
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://files.catbox.moe/rd5c7r.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 60px 8%;
+            border-bottom: 5px solid #003366;
+            text-align: center;
+            position: relative;
+            z-index: 100;
+        }
+
+        header h1 {
+            color: white;
+            font-size: 3rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            -webkit-text-stroke: 1px #003366;
+            text-shadow: 3px 3px 0px #003366;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .nav-container a {
+            text-decoration: none;
+            color: #003366;
+            font-weight: 700;
+            padding: 10px 20px;
+            border: 2px solid #003366;
+            border-radius: 8px;
+            transition: 0.3s;
+            background: white;
+        }
+
+        .nav-container a:hover { background: #003366; color: white; }
+
+        .contact-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px 8%;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .contact-card {
+            background: #111;
+            padding: 40px;
+            border-radius: 25px;
+            border: 2px solid #003366;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(0, 51, 102, 0.5);
+        }
+
+        .contact-card h2 {
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+            color: #ff4757;
+        }
+
+        .contact-card p {
+            margin-bottom: 25px;
+            line-height: 1.6;
+            color: #ccc;
+        }
+
+        /* CONTAINER TOMBOL */
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .btn-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 1rem;
+            transition: 0.3s;
+            border: 2px solid white;
+            width: 100%;
+            max-width: 350px;
+        }
+
+        .btn-link:hover { transform: scale(1.05); }
+
+        /* WARNA MASING-MASING TOMBOL */
+        .btn-wa { background: #25d366; box-shadow: 0 0 15px rgba(37, 211, 102, 0.4); }
+        .btn-tele { background: #0088cc; box-shadow: 0 0 15px rgba(0, 136, 204, 0.4); }
+        .btn-channel { background: #565d61; box-shadow: 0 0 15px rgba(86, 93, 97, 0.4); }
+
+        .chibi-deco {
+            position: absolute;
+            width: 130px;
+            z-index: 99;
+            pointer-events: none;
+        }
+
+        .chibi-left { top: 300px; left: 20px; animation: bounce 4s infinite; }
+        .chibi-right { top: 500px; right: 20px; animation: bounce 3s infinite; }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 2rem; }
+            .chibi-deco { width: 90px; }
+            .contact-card { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <img src="https://files.catbox.moe/8awfyi.png" class="chibi-deco chibi-left" alt="Chibi">
+    <img src="https://files.catbox.moe/70c7u2.png" class="chibi-deco chibi-right" alt="Chibi">
+
+    <header>
+        <h1>HUBUNGI FATE</h1>
+        <div class="nav-container">
+            <a href="index.html">Home</a>
+            <a href="karya.html">Karya</a>
+            <a href="kontak.html" style="background: #003366; color: white;">Kontak</a>
+        </div>
+    </header>
+
+    <main class="contact-container">
+        <div class="contact-card">
+            <h2>Mau order ngabs ?,kontak aja</h2>
+            <p>Kontak gw dibawah ngabs ,mau order/konsultasi(free) boleh bnget kita sharing" ilmu bareng</p>
+            
+            <div class="button-group">
+                <a href="https://wa.me/62881010174502?text=Halo%20Fate%20Design!%20Saya%20ingin%20memesan%20desain." class="btn-link btn-wa">
+                    ORDER VIA WHATSAPP                 </a>
+
+                <a href="https://t.me/Dysszz" target="_blank" class="btn-link btn-tele">
+                    MY TELEGRAM 
+                </a>
+
+                <a href="https://whatsapp.com/channel/0029VbCk2Il23n3glAUx7k2n" target="_blank" class="btn-link btn-channel">
+                    FOLLOW WA CHANNEL </a>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
